@@ -1,0 +1,15 @@
+services:
+  benchmark:
+    build: .
+    container_name: ew-pytorch-spark-poc
+    runtime: nvidia
+    volumes:
+      - ./results:/app/results
+    environment:
+      - PYSPARK_PYTHON=python
+      - PYSPARK_DRIVER_PYTHON=python
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - SPARK_DRIVER_MEMORY=2g
+    shm_size: '2g'
+    command: python benchmark/run_benchmark.py
